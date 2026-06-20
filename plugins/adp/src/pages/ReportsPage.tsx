@@ -5,7 +5,6 @@ import {
   SupportButton,
 } from '@backstage/core-components';
 import {
-  Grid,
   Tabs,
   Tab,
   Box,

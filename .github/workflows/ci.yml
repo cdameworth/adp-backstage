@@ -1,9 +1,9 @@
 name: CI
 
-# Runs on PRs and manual dispatch (not push to main) until the plugins
-# build cleanly in a Backstage workspace — see adp#14. Add a `push` trigger
-# once green.
+# Runs on pushes to main and on PRs (the workspace builds cleanly — adp#14).
 on:
+  push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
 

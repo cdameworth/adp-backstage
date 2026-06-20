@@ -183,7 +183,7 @@ export const ApprovalsQueue = () => {
     {
       title: 'Actions',
       render: row => (
-        <Box display="flex" gap={1}>
+        <Box display="flex" style={{ gap: 8 }}>
           <Button
             size="small"
             variant="outlined"
@@ -217,7 +217,7 @@ export const ApprovalsQueue = () => {
     <>
       <Table
         title={
-          <Box display="flex" alignItems="center" gap={2}>
+          <Box display="flex" alignItems="center" style={{ gap: 16 }}>
             <Typography variant="h6">Pending Approvals</Typography>
             {value && value.length > 0 && (
               <Chip label={value.length} color="secondary" size="small" />

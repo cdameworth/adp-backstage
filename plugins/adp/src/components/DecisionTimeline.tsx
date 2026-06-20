@@ -128,7 +128,7 @@ const DecisionCard = ({ decision }: DecisionCardProps) => {
                 {decision.target}
               </Typography>
             </Box>
-            <Box display="flex" alignItems="center" gap={1}>
+            <Box display="flex" alignItems="center" style={{ gap: 8 }}>
               {statusComponent()}
               {decision.reasoning && (
                 <IconButton size="small" onClick={() => setExpanded(!expanded)}>

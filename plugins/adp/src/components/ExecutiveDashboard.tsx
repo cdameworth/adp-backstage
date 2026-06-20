@@ -15,8 +15,6 @@ import {
   Paper,
 } from '@material-ui/core';
 import {
-  LineChart,
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,

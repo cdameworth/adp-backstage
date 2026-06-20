@@ -65,8 +65,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const COLORS = ['#4caf50', '#f44336', '#ff9800', '#9c27b0'];
-
 /**
  * Governance effectiveness analytics dashboard
  */

@@ -58,11 +58,8 @@ async function getUserFromRequest(
   httpAuth: HttpAuthService,
 ): Promise<{ userEntityRef?: string }> {
   try {
-    const credentials = await httpAuth.credentials(req);
-    if (credentials.principal.type === 'user') {
-      return { userEntityRef: credentials.principal.userEntityRef };
-    }
-    return {};
+    const credentials = await httpAuth.credentials(req, { allow: ['user'] });
+    return { userEntityRef: credentials.principal.userEntityRef };
   } catch {
     return {};
   }

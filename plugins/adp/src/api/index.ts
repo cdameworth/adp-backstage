@@ -283,6 +283,12 @@ export interface AdpApi {
     params?: { start?: string; end?: string },
   ): Promise<unknown>;
 
+  exportComplianceReport(params: {
+    start: string;
+    end: string;
+    format: 'json' | 'csv' | 'prometheus';
+  }): Promise<unknown>;
+
   // Documentation (ADP documentation engine output)
   getDocs(params?: {
     category?: string;
@@ -479,6 +485,18 @@ export class AdpClient implements AdpApi {
     if (params?.end) query.set('end', params.end);
     const queryStr = query.toString();
     return this.fetch(`/reports/by-service/${serviceId}${queryStr ? `?${queryStr}` : ''}`);
+  }
+
+  async exportComplianceReport(params: {
+    start: string;
+    end: string;
+    format: 'json' | 'csv' | 'prometheus';
+  }): Promise<unknown> {
+    const query = new URLSearchParams();
+    query.set('start', params.start);
+    query.set('end', params.end);
+    query.set('format', params.format);
+    return this.fetch(`/reports/compliance?${query.toString()}`);
   }
 
   // Documentation

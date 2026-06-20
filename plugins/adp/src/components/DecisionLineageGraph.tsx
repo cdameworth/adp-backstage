@@ -10,11 +10,13 @@ import {
   Typography,
   makeStyles,
   Theme,
-  Chip,
   Paper,
 } from '@material-ui/core';
 import * as d3 from 'd3';
-import { adpApiRef, LineageGraph, LineageNode, LineageEdge } from '../api';
+import { adpApiRef, LineageNode, LineageEdge } from '../api';
+
+type SimNode = LineageNode & d3.SimulationNodeDatum;
+type SimLink = LineageEdge & d3.SimulationLinkDatum<SimNode>;
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -116,19 +118,22 @@ export const DecisionLineageGraph = ({ decisionId, depth = 5 }: DecisionLineageG
     svg.call(zoom);
 
     // Create simulation
-    const simulation = d3.forceSimulation<LineageNode>(lineage.nodes)
-      .force('link', d3.forceLink<LineageNode, LineageEdge>(lineage.edges)
+    const nodes = lineage.nodes as SimNode[];
+    const links = lineage.edges as SimLink[];
+
+    const simulation = d3.forceSimulation<SimNode>(nodes)
+      .force('link', d3.forceLink<SimNode, SimLink>(links)
         .id(d => d.id)
         .distance(100))
-      .force('charge', d3.forceManyBody().strength(-300))
-      .force('center', d3.forceCenter(width / 2, height / 2))
-      .force('collision', d3.forceCollide().radius(40));
+      .force('charge', d3.forceManyBody<SimNode>().strength(-300))
+      .force('center', d3.forceCenter<SimNode>(width / 2, height / 2))
+      .force('collision', d3.forceCollide<SimNode>().radius(40));
 
     // Draw edges
     const link = g.append('g')
       .attr('class', 'links')
       .selectAll('line')
-      .data(lineage.edges)
+      .data(links)
       .enter()
       .append('line')
       .attr('stroke', '#999')
@@ -140,7 +145,7 @@ export const DecisionLineageGraph = ({ decisionId, depth = 5 }: DecisionLineageG
     const linkLabels = g.append('g')
       .attr('class', 'link-labels')
       .selectAll('text')
-      .data(lineage.edges)
+      .data(links)
       .enter()
       .append('text')
       .attr('font-size', 10)
@@ -151,10 +156,10 @@ export const DecisionLineageGraph = ({ decisionId, depth = 5 }: DecisionLineageG
     const node = g.append('g')
       .attr('class', 'nodes')
       .selectAll('g')
-      .data(lineage.nodes)
+      .data(nodes)
       .enter()
       .append('g')
-      .call(d3.drag<SVGGElement, LineageNode>()
+      .call(d3.drag<SVGGElement, SimNode>()
         .on('start', (event, d) => {
           if (!event.active) simulation.alphaTarget(0.3).restart();
           d.fx = d.x;
@@ -202,7 +207,7 @@ export const DecisionLineageGraph = ({ decisionId, depth = 5 }: DecisionLineageG
     });
 
     // Center on the target decision node
-    const targetNode = lineage.nodes.find(n => n.id === decisionId);
+    const targetNode = nodes.find(n => n.id === decisionId);
     if (targetNode) {
       const initialTransform = d3.zoomIdentity
         .translate(width / 2 - (targetNode.x || width / 2), height / 2 - (targetNode.y || height / 2));
