@@ -229,7 +229,7 @@ export const ComplianceExport = () => {
                   variant="outlined"
                   onClick={() => handleTemplateSelect(template.id)}
                 >
-                  <Box display="flex" alignItems="center" gap={1} mb={1}>
+                  <Box display="flex" alignItems="center" mb={1} style={{ gap: 8 }}>
                     <DescriptionIcon color="primary" />
                     <Typography variant="subtitle1">{template.name}</Typography>
                   </Box>

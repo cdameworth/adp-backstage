@@ -63,8 +63,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const COLORS = ['#4caf50', '#f44336', '#ff9800', '#2196f3', '#9c27b0', '#00bcd4', '#795548'];
-
 /**
  * Escalation analytics dashboard
  */

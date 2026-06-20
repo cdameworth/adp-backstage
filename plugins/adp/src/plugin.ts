@@ -54,49 +54,11 @@ export const AdpPage = adpPlugin.provide(
   }),
 );
 
-/**
- * Sessions page component
+/*
+ * Sessions/Approvals/Audit/Reports are rendered by AdpPage's internal router
+ * (mounted at /adp/*), so they are not separate routable extensions — those
+ * sub-route refs are bound via the plugin `routes` map above.
  */
-export const AdpSessionsPage = adpPlugin.provide(
-  createRoutableExtension({
-    name: 'AdpSessionsPage',
-    component: () => import('./pages/SessionsPage').then(m => m.SessionsPage),
-    mountPoint: sessionsRouteRef,
-  }),
-);
-
-/**
- * Approvals page component
- */
-export const AdpApprovalsPage = adpPlugin.provide(
-  createRoutableExtension({
-    name: 'AdpApprovalsPage',
-    component: () => import('./pages/ApprovalsPage').then(m => m.ApprovalsPage),
-    mountPoint: approvalsRouteRef,
-  }),
-);
-
-/**
- * Audit page component
- */
-export const AdpAuditPage = adpPlugin.provide(
-  createRoutableExtension({
-    name: 'AdpAuditPage',
-    component: () => import('./pages/AuditPage').then(m => m.AuditPage),
-    mountPoint: auditRouteRef,
-  }),
-);
-
-/**
- * Reports page component
- */
-export const AdpReportsPage = adpPlugin.provide(
-  createRoutableExtension({
-    name: 'AdpReportsPage',
-    component: () => import('./pages/ReportsPage').then(m => m.ReportsPage),
-    mountPoint: reportsRouteRef,
-  }),
-);
 
 /**
  * Entity content component for catalog entities

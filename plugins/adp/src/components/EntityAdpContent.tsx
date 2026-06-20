@@ -21,19 +21,14 @@ export const EntityAdpContent = () => {
 
   if (!serviceId) {
     return (
-      <MissingAnnotationEmptyState annotation={ADP_SERVICE_ID_ANNOTATION}>
-        <Typography variant="body1" paragraph>
-          To enable ADP agent activity tracking for this entity, add the following
-          annotation to your entity YAML:
-        </Typography>
-        <InfoCard title="Example">
-          <Box
-            component="pre"
-            p={2}
-            bgcolor="grey.100"
-            borderRadius={1}
-            overflow="auto"
-          >
+      <>
+        <MissingAnnotationEmptyState annotation={ADP_SERVICE_ID_ANNOTATION} />
+        <InfoCard title="Enable ADP for this entity">
+          <Typography variant="body1" paragraph>
+            To enable ADP agent activity tracking, add this annotation to the
+            entity YAML:
+          </Typography>
+          <Box component="pre" p={2} bgcolor="grey.100" borderRadius={1} overflow="auto">
             {`apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
@@ -45,22 +40,15 @@ spec:
   lifecycle: production
   owner: team-a`}
           </Box>
+          <Typography variant="body2" color="textSecondary" style={{ marginTop: 16 }}>
+            The service ID is shown in the ADP dashboard under Services, or create
+            one with the ADP CLI:
+          </Typography>
+          <Box component="pre" p={2} bgcolor="grey.100" borderRadius={1} overflow="auto" mt={1}>
+            {`adp service create --name my-service --description "My awesome service"`}
+          </Box>
         </InfoCard>
-        <Typography variant="body2" color="textSecondary" style={{ marginTop: 16 }}>
-          The service ID can be found in the ADP dashboard under Services,
-          or you can create a new service using the ADP CLI:
-        </Typography>
-        <Box
-          component="pre"
-          p={2}
-          bgcolor="grey.100"
-          borderRadius={1}
-          overflow="auto"
-          mt={1}
-        >
-          {`adp service create --name my-service --description "My awesome service"`}
-        </Box>
-      </MissingAnnotationEmptyState>
+      </>
     );
   }
 

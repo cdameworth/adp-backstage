@@ -10,10 +10,6 @@
 export {
   adpPlugin,
   AdpPage,
-  AdpSessionsPage,
-  AdpApprovalsPage,
-  AdpAuditPage,
-  AdpReportsPage,
   EntityAdpContent,
   AdpGovernanceDocsAddon,
 } from './plugin';

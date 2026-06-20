@@ -13,7 +13,6 @@ import {
   Theme,
 } from '@material-ui/core';
 import { SessionsTable } from './SessionsTable';
-import { DecisionTimeline } from './DecisionTimeline';
 import { adpApiRef } from '../api';
 
 const useStyles = makeStyles((theme: Theme) => ({

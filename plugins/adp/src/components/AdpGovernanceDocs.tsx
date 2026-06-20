@@ -76,7 +76,7 @@ export const AdpGovernanceDocs = () => {
           <AccordionSummary expandIcon={<ExpandMoreIcon />}>
             <Box display="flex" flexDirection="column">
               <Typography variant="body2">{doc.title}</Typography>
-              <Box mt={0.5} display="flex" alignItems="center" gap={1}>
+              <Box mt={0.5} display="flex" alignItems="center" style={{ gap: 8 }}>
                 <Chip
                   size="small"
                   label={categoryLabels[doc.category] ?? doc.category}
